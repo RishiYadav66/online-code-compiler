@@ -14,7 +14,7 @@ function App() {
 	const [userLang, setUserLang] = useState("python");
 
 	// State variable to set editors default theme
-	const [userTheme, setUserTheme] = useState("vs-dark");
+	const [userTheme, setUserTheme] = useState("light");
 
 	// State variable to set editors default font size
 	const [fontSize, setFontSize] = useState(20);
@@ -40,19 +40,29 @@ function App() {
 		setLoading(true);
 		if (userCode === ``)
 		{
+			setUserOutput("Please enter a valid code")
+			setLoading(false);
 			return
 		}
 
 		// Post request to compile endpoint
-		Axios.post(`http://localhost:8000/compile`, {
+		Axios.post(`https://codecompiler-piq0.onrender.com/compile`, {
 			code: userCode,
 			language: userLang,
 			input: userInput
 		}).then((res) => {
-			setUserOutput(res.data.output);
-		}).then(() => {
+			if (res.data.error)
+			{
+				setUserOutput("Error: " + res.data.error);
+			} else
+			{
+				setUserOutput(res.data.output);
+			}
+		}).catch((error) => {
+			setUserOutput("An error occurred during compilation.");
+		}).finally(() => {
 			setLoading(false);
-		})
+		});
 	}
 
 	// Function to clear the output screen
@@ -93,17 +103,17 @@ function App() {
 					<h4>Output:</h4>
 					{loading ? (
 						<div className="spinner-box">
-							Loading....
+							loading...
 						</div>
 					) : (
 						<div className="output-box">
 							<pre>{userOutput}</pre>
-							<button onClick={() => { clearOutput() }}
-								className="clear-btn">
+							<button onClick={() => { clearOutput() }} className="clear-btn">
 								Clear
 							</button>
 						</div>
 					)}
+
 				</div>
 			</div>
 		</div>

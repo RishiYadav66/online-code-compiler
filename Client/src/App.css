@@ -23,14 +23,16 @@
   padding: 5px;
 }
 .input-box {
-  flex: 50%;
+  display: block;
+  height: 40%;
 }
 .input-box textarea {
   font-size: 16px;
 }
 
 .output-box {
-  flex: 50%;
+  display: block;
+  height: 50%;
   background-color: #242424;
   overflow-y: auto;
   color: white;
@@ -64,7 +66,7 @@ h4 {
   height: 100%;
   resize: none;
   background-color: #242424;
-  color: whitesmoke;
+  color: rgb(227, 227, 227);
   padding: 5px;
 }
 #code-inp:focus {
@@ -106,7 +108,7 @@ h4 {
 
 .css-2b097c-container {
   width: 120px;
-  color: black;
+  color: rgb(72, 47, 47);
   background-color: #fbaeae;
 }
 .css-yk16xz-control {
